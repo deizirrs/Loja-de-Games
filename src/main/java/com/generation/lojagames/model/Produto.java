@@ -3,21 +3,24 @@ package com.generation.lojagames.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,14 +29,14 @@ public class Produto {
 	private String nome;
 	
 	@NotBlank(message = "O Atributo descrição é Obrigatório!")
-	@Size(max = 100, message = "O atributo descrição deve ter no máximo 100 caracteres")
+	@Size(max = 1000, message = "O atributo descrição deve ter no máximo 1000 caracteres")
 	private String descricao;
 	
-	@UpdateTimestamp
-	private LocalDate dateLancamento;
+	
+	private LocalDate datalancamento;
 	
 	@NotNull
-	@PositiveOrZero
+	@Positive
 	private BigDecimal preco;
 	
 	@NotBlank(message = "O Atributo console é Obrigatório!")
@@ -42,6 +45,10 @@ public class Produto {
 	
 	@Size(max = 100, message = "O atributo descrição deve ter no máximo 100 caracteres")
 	private String foto;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private  Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -67,12 +74,12 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDateLancamento() {
-		return dateLancamento;
+	public LocalDate getDatalancamento() {
+		return datalancamento;
 	}
 
-	public void setDateLancamento(LocalDate dateLancamento) {
-		this.dateLancamento = dateLancamento;
+	public void setDatalancamento(LocalDate datalancamento) {
+		this.datalancamento = datalancamento;
 	}
 
 	public BigDecimal getPreco() {
@@ -98,7 +105,17 @@ public class Produto {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+
+		}
 	
 	
 
-}
