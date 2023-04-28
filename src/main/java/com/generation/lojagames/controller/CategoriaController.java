@@ -21,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.generation.lojagames.model.Categoria;
 import com.generation.lojagames.repository.CategoriaRepository;
 
-
 import jakarta.validation.Valid;
 
 @RestController 
